@@ -34,7 +34,7 @@ public class Calculator : MonoBehaviour
     {
         if (!operationEntered)
         {
-            lastNum = int.Parse(Display.text);
+            lastNum = int.Parse(getDisplayValue());
 
         }
         
@@ -47,38 +47,67 @@ public class Calculator : MonoBehaviour
     {
         if(Display.text== "0") //Display.text.Equals("0")
         {
-            Display.text = num.ToString();
+            //Display.text = num.ToString();
+            setDisplayValue(num);
         }
         else
         {
-            Display.text = Display.text + num.ToString();
+            setDisplayValue(int.Parse(getDisplayValue()) * 10 + num);
         }
+    }
+    private string getDisplayValue()
+    {
+        string display = Display.text;
+        string valueStr = display.Replace(",", "");
+        return valueStr;
+    }
+    private void setDisplayValue(int num)
+    {
+        //Display.text = num.ToString();
+        formateDisplay(num);
+    }
+
+    private void formateDisplay(int num)
+    {
+        string display = num.ToString();
+        int length = display.Length;
+        int index = length % 3;
+        if (index == 0) index += 3;
+        while(index < display.Length)
+        {
+            string ending = display.Substring(index);
+            string begining = display.Substring(0, index); //123456789
+            display = begining + "," + ending;
+            index += 4;
+        }
+        Display.text = display;
     }
 
     private void calculate()
     {
         if (oper == "/")
         {
-            lastNum /= int.Parse(Display.text);
+            lastNum /= int.Parse(getDisplayValue());
 
         }
         else if (oper == "x")
         {
-            lastNum *= int.Parse(Display.text);
+            lastNum *= int.Parse(getDisplayValue());
         }
         else if (oper == "+")
         {
-            lastNum += int.Parse(Display.text);
+            lastNum += int.Parse(getDisplayValue());
         }
         else if (oper == "-")
         {
-            lastNum -= int.Parse(Display.text);
+            lastNum -= int.Parse(getDisplayValue());
         }
         else
         {
             return;
         }
-        Display.text = lastNum.ToString();
+        //Display.text = lastNum.ToString();
+        setDisplayValue(lastNum);
         operationEntered = false;
     }
 }
