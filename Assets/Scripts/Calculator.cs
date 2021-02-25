@@ -43,6 +43,14 @@ public class Calculator : MonoBehaviour
 
     }
 
+    public void ClearButton()
+    {
+        formateDisplay(0);
+        oper = "";
+        operationEntered = false;
+        lastNum = 0;
+    }
+
     private void addToDisplay(int num)
     {
         if(Display.text== "0") //Display.text.Equals("0")
@@ -82,6 +90,8 @@ public class Calculator : MonoBehaviour
         }
         Display.text = display;
     }
+
+
 
     private void calculate()
     {
