@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.GetComponent<Base>())
         {
-            print("Target Distance: " + Vector2.Distance(collision.transform.position, transform.position));
+            //sprint("Target Distance: " + Vector2.Distance(collision.transform.position, transform.position));
             collision.transform.GetComponent<Base>().TakeDamage(1);
             Destroy(gameObject);
         }

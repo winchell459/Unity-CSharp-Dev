@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StudyHandler : MonoBehaviour
 {
@@ -34,8 +35,14 @@ public class StudyHandler : MonoBehaviour
         }
         else
         {
-            List<float> scores = new List<float>(5);
-            int[] scoreCounts = new int[5];
+            int typesCount = Enum.GetNames(typeof(Base.TargetEnemyTypes)).Length;
+            float[] scores = new float[typesCount];
+            int[] scoreCounts = new int[typesCount];
+            for(int i = 0; i < typesCount; i += 1)
+            {
+                scores[i] = 0;
+                scoreCounts[i] = 0;
+            }
             //foreach(Base.TargetEnemyTypes type in MarchingOrders)
             for (int i = 0; i < MarchingOrders.Length; i += 1)
             {
@@ -45,9 +52,9 @@ public class StudyHandler : MonoBehaviour
                 scoreCounts[orderIndex] += 1;
             }
 
-            for (int i = 0; i < 4; i += 1)
+            for (int i = 0; i < typesCount; i += 1)
             {
-                print((Base.TargetEnemyTypes)i + " Score: " + scores[i] / scoreCounts[i]);
+                if(scoreCounts[i] > 0) print((Base.TargetEnemyTypes)i + " Score: " + scores[i] / scoreCounts[i]);
             }
 
             return Base.TargetEnemyTypes.Hold;

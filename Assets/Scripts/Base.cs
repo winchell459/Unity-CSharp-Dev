@@ -55,7 +55,7 @@ public class Base : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemySpawnTime + EnemySpawnRate < Time.fixedTime)
+        if(TargetEnemy != TargetEnemyTypes.Hold && enemySpawnTime + EnemySpawnRate < Time.fixedTime)
         {
             Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             //print(direction);
