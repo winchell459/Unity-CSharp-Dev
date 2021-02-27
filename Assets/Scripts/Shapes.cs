@@ -200,22 +200,20 @@ public class Shapes : MonoBehaviour
 
     private void testing()
     {
-        int count = 0;
-        do
+        int num = 2;
+        while (num != 3)
         {
-            print(count);
-            count += 1;
-        } while (count < 5);
-        //while(count < 5)
-        //{
-        //    print(count);
-        //    count += 1;
-        //}
+            if (num < 3)
+            {
+                num *= num;
+            }
+            else
+            {
+                num -= 1;
+            }
+            print(num);
+        }
 
-        //for(int i = 0; i < 5; i += 1)
-        //{
-        //    print(i);
-        //}
 
 
     }
