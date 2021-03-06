@@ -5,16 +5,22 @@ using UnityEngine;
 public class Shapes : MonoBehaviour
 {
     public GameObject PixelPrefab;
+    public float pixelSpacing = 0.1f;
     
     // Start is called before the first frame update
     void Start()
     {
         //rectangle(7, 5);
         //triangleUpsideDownLeft(5);
-        triangleUpsideDownLeft(4, 6, 1);
-        triangleUpsideDownRight(5, 1, 0);
-        triangleRight(6, 0, 5);
-        triangleLeft(5, 6, 5);
+        //triangleUpsideDownLeft(4, 6, 1);
+        //triangleUpsideDownRight(5, 1, 0);
+        //triangleRight(6, 0, 5);
+        //triangleLeft(5, 6, 5);
+
+        //line(10, 0, 0);
+        //stairs(4, false, 10, 1);
+        //stairs(3, true, 14, 3);
+        //wall(5, -1, 1);
 
         testing();
         string str = "";
@@ -86,13 +92,39 @@ public class Shapes : MonoBehaviour
         print(str);
     }
 
+    public void Line(int length, int xOffset, int yOffset)
+    {
+        for(int x = xOffset; x < length + xOffset; x += 1)
+        {
+            createPixel(x, yOffset);
+        }
+    }
+
+    public void Stairs(int length, bool decending, int xOffset, int yOffset)
+    {
+        int elevation = decending ? -1 : 1;
+        for (int i = 0; i < length ; i += 1)
+        {
+            createPixel(xOffset + i, yOffset + i * elevation);
+        }
+    }
+
+    public void Wall(int height, int xOffset, int yOffset)
+    {
+        for(int y = yOffset; y < height + yOffset; y += 1)
+        {
+            createPixel(xOffset, y);
+        }
+    }
+
+
     private void rectangle(int width, int height)
     {
         for (int x = 0; x < width; x += 1)
         {
             for (int y = 0; y < height; y += 1)
             {
-                createPixel(x * 1.1f, y * 1.1f);
+                createPixel(x, y);
             }
         }
     }
@@ -103,7 +135,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = y; x < height; x += 1)
             {
-                createPixel(x * 1.1f, y * 1.1f);
+                createPixel(x, y);
             }
         }
     }
@@ -114,7 +146,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = height - y -1; x < height; x += 1)
             {
-                createPixel(x * 1.1f, y * 1.1f);
+                createPixel(x , y);
             }
         }
     }
@@ -125,7 +157,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = 0; x <= y; x += 1)
             {
-                createPixel(x * 1.1f, y * 1.1f);
+                createPixel(x, y );
             }
         }
     }
@@ -136,7 +168,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = 0; x < height - y; x += 1)
             {
-                createPixel(x * 1.1f, y * 1.1f);
+                createPixel(x , y);
             }
         }
     }
@@ -147,7 +179,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = y; x < height; x += 1)
             {
-                createPixel((x + xOffset) * 1.1f , (y + yOffset) * 1.1f);
+                createPixel((x + xOffset) , (y + yOffset));
             }
         }
     }
@@ -158,7 +190,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = height - y - 1; x < height; x += 1)
             {
-                createPixel((x + xOffset) * 1.1f, (y + yOffset) * 1.1f);
+                createPixel((x + xOffset), (y + yOffset));
             }
         }
     }
@@ -169,7 +201,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = 0; x <= y; x += 1)
             {
-                createPixel((x + xOffset) * 1.1f, (y + yOffset) * 1.1f);
+                createPixel((x + xOffset), (y + yOffset));
             }
         }
     }
@@ -180,7 +212,7 @@ public class Shapes : MonoBehaviour
         {
             for (int x = 0; x < height - y; x += 1)
             {
-                createPixel((x + xOffset) * 1.1f, (y + yOffset) * 1.1f);
+                createPixel((x + xOffset), (y + yOffset));
             }
         }
     }
@@ -194,7 +226,7 @@ public class Shapes : MonoBehaviour
 
     private void createPixel(float x, float y, Color color)
     {
-        GameObject pixel = Instantiate(PixelPrefab, new Vector2(x, y), Quaternion.identity);
+        GameObject pixel = Instantiate(PixelPrefab, new Vector2(x * (1 + pixelSpacing), y *(1 + pixelSpacing)), Quaternion.identity);
         pixel.GetComponent<SpriteRenderer>().color = color;
     }
 
