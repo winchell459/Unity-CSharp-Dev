@@ -10,6 +10,8 @@ public class ShapesMap : MonoBehaviour
 
     public Transform Player;
     private bool settingUp = true;
+
+    public int DrawDistance = 6;
     // Start is called before the first frame update
     void Awake()
     {
@@ -20,7 +22,7 @@ public class ShapesMap : MonoBehaviour
     void Update()
     {
         
-        if (!settingUp && Player.position.x > xOffset - 5) buildChoice();
+        if (!settingUp && Player.position.x > (xOffset - DrawDistance) *(1+Shapes.pixelSpacing)) buildChoice();
         else if(settingUp)
         {
             line(6);
@@ -28,6 +30,8 @@ public class ShapesMap : MonoBehaviour
             settingUp = false;
         }
     }
+
+    int lastChoice = 4;
 
     private void buildChoice()
     {
@@ -41,6 +45,7 @@ public class ShapesMap : MonoBehaviour
                 length = Random.Range(3, 7);
                 line(length);
                 print("line");
+                lastChoice = choice;
                 break;
             case 1:
                 length = Random.Range(3, 7);
@@ -48,24 +53,31 @@ public class ShapesMap : MonoBehaviour
                 decending = Random.Range(0, 2) == 0 ? false : true;
                 stairs(length, decending);
                 print("stair");
+                lastChoice = choice;
                 break;
             case 2:
                 //gap
-                length = Random.Range(1, 5);
-                xOffset += length;
-                print("gap");
+                if(lastChoice != 2)
+                {
+                    length = Random.Range(1, 5);
+                    xOffset += length;
+                    print("gap");
+                    lastChoice = choice;
+                }
+                
                 break;
             case 3:
                 height = 2;
                 wall(height);
                 print("wall");
+                lastChoice = choice;
                 break;
             default:
                 print("missing case");
                 break;
                 
         }
-        
+
         
     }
 
@@ -84,6 +96,6 @@ public class ShapesMap : MonoBehaviour
     {
         Shapes.Wall(height, xOffset, yOffset);
         xOffset += 1;
-        yOffset += height;
+        yOffset += height - 1;
     }
 }

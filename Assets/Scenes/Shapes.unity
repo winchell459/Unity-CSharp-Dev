@@ -359,7 +359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 363517655}
-  VerticalOffset: 3
+  VerticalOffset: 0
+  HorizontalOffset: 2
 --- !u!1 &2101990055
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,3 +424,4 @@ MonoBehaviour:
   xOffset: 0
   yOffset: 0
   Player: {fileID: 363517655}
+  DrawDistance: 6
